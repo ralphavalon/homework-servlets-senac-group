@@ -24,7 +24,7 @@ public class ControllerServlet extends HttpServlet{
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new ServletException("Exceção causada pela execução da regra de negócios");
+			throw new ServletException("Excecao causada pela execucao da regra de negocios");
 		}
 		
 	}

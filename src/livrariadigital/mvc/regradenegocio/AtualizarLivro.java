@@ -1,0 +1,39 @@
+package livrariadigital.mvc.regradenegocio;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import livrariadigital.dao.LivroDao;
+import livrariadigital.modelo.Livro;
+
+public class AtualizarLivro implements RegraDeNegocio {
+
+	@Override
+	public String execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
+		LivroDao dao = new LivroDao();
+		
+		Long id = Long.valueOf(req.getParameter("id"));
+		Livro livro = dao.buscaPorId( id );
+		
+		livro.setTitulo(req.getParameter("titulo"));
+		livro.setAutor(req.getParameter("autor"));
+		livro.setEditora(req.getParameter("editora"));
+		livro.setEmail(req.getParameter("email"));
+		
+		String data = req.getParameter("data");
+		Date date = new SimpleDateFormat("dd/MM/yyyy").parse(data);
+		Calendar data2 = Calendar.getInstance();
+		data2.setTime(date);
+		
+		livro.setDataLancamento(data2);
+		
+		dao.atualiza(livro);
+		System.out.println("livro atualizado!");
+		return "listalivros.jsp";
+	}
+
+}
